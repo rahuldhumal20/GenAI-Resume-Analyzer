@@ -1,185 +1,323 @@
-# 🚀 AI Resume Screening System (GenAI + LangChain)
+# 🚀 GenAI Resume Analyzer
 
 ## 📌 Overview
-This project is an **AI-powered Resume Screening System** that evaluates candidates based on a given job description.
+GenAI Resume Analyzer is an AI-powered ATS-style resume screening system that evaluates candidates against job descriptions using Large Language Models.
 
-It simulates a **real-world recruiter pipeline** by:
-- Extracting skills and experience from resumes (PDF)
-- Matching candidate profiles with job requirements
-- Assigning a **score (0–100)**
-- Providing **explainable hiring decisions**
+The system supports both:
 
----
+✅ Web UI (React + FastAPI)  
+✅ Batch / Command Line Mode (Multiple resumes)
 
-## 🎯 Key Objectives
-- Build a complete **LLM-powered evaluation pipeline**
-- Implement **skill extraction + matching + scoring**
-- Ensure **explainability in AI decisions**
-- Enable **LangSmith tracing for debugging**
+It performs:
 
----
-
-## ⚙️ Tech Stack
-- **Python**
-- **LangChain (LCEL)**
-- **Groq API (LLaMA 3.3)**
-- **LangSmith (Tracing & Monitoring)**
-- **PyPDF (PDF Processing)**
+- Resume parsing from PDF
+- Skill extraction
+- Job description matching
+- Candidate scoring
+- Matched vs Missing skills detection
+- Explainable AI recommendations
+- Candidate ranking support
 
 ---
 
-## 🔄 Pipeline Architecture
+# ⚙️ Tech Stack
 
-PDF Resume → Text Extraction → Skill Extraction → Matching → Scoring → Explanation
+## Frontend
+- React (Vite)
+- Axios
 
+## Backend
+- FastAPI
+- Python
 
----
+## AI / LLM
+- LangChain
+- Groq (LLaMA 3.3)
+- LangSmith
 
-## 🧠 Features
-
-### ✅ Resume Processing
-- Reads resumes directly from **PDF files**
-- Supports multiple candidates dynamically
-
-### ✅ Skill Extraction
-- Extracts:
-  - Skills
-  - Tools
-  - Experience
-
-### ✅ Intelligent Matching
-- Compares resume with job description
-- Identifies:
-  - Matched skills
-  - Missing skills
-
-### ✅ Hybrid Scoring System
-- Combines:
-  - AI-based understanding
-  - Rule-based scoring logic
-- Factors:
-  - Skill match ratio
-  - Experience level
-- Produces **realistic scores (0–100)**
-
-### ✅ Explainable AI
-- Provides:
-  - Strengths
-  - Weaknesses
-  - Final Recommendation (Hire / Consider / Reject)
-
-### ✅ Automatic Classification
-- Strong → Score ≥ 80  
-- Average → Score 50–79  
-- Weak → Score < 50  
-
-### ✅ LangSmith Tracing (Mandatory)
-- Tracks full pipeline:
-  - Extraction
-  - Matching
-  - Scoring
-  - Explanation
+## PDF Processing
+- PyPDF
 
 ---
 
-## 📊 Sample Output
+# 🧠 Features
 
-============================
-Resume: Rahul Resume.pdf
-Score: 88
-Category: STRONG
+## ✅ Dynamic Resume Analysis
+Upload a PDF resume and paste any Job Description for analysis.
 
---- Explanation ---
+## ✅ Skill Matching
+Detects:
 
-Strengths:
+- Matched Skills
+- Missing Skills
 
-Strong MERN stack skills
-Good API development experience
+## ✅ Hybrid Candidate Scoring
+Generates realistic candidate score:
 
-Weaknesses:
+0–100
 
-Slightly lower experience (1–2 years)
+Based on:
+- Skill Match
+- Experience
+- Penalties for skill gaps
 
-Recommendation:
-Hire
+## ✅ Candidate Classification
+- STRONG
+- AVERAGE
+- WEAK
 
+## ✅ Explainable AI
+Returns:
+- Strengths
+- Weaknesses
+- Recommendation
 
----
+## ✅ Batch Processing (CLI)
+Add multiple resumes into:
 
-## 🚀 How to Run
-
-### 1️⃣ Clone Repository
-
-git clone <your-repo-link>
-cd resume-screening-ai
-
-### 2️⃣ Create Virtual Environment
-
-python -m venv venv
-venv\Scripts\activate   # Windows
-
-### 3️⃣ Install Dependencies
-
-pip install -r requirements.txt
-
-### 4️⃣ Setup Environment Variables
-
-Create .env file:
-
-GROQ_API_KEY=your_groq_api_key
-LANGCHAIN_API_KEY=your_langsmith_key
-LANGCHAIN_TRACING_V2=true
-LANGCHAIN_PROJECT=resume-screening
-
-### 5️⃣ Add Resumes
-
-Place PDF files inside:
-
+```text
 resumes/
+```
 
-### 6️⃣ Run Project
+and run:
+
+```bash
 python main.py
+```
+
+Automatically evaluates all resumes.
+
+## ✅ Web UI
+Upload Resume + Paste Job Description + Analyze instantly.
 
 ---
 
-📈 Evaluation Logic
-Factor	    | Weight
-Skill Match	|60%
-Experience	|30%
-Penalties	|Applied for gaps
+# 🔄 Architecture
+
+```text
+Resume PDF
+   ↓
+Extraction
+   ↓
+Matching
+   ↓
+Scoring
+   ↓
+Explanation
+   ↓
+UI / CLI Output
+```
 
 ---
 
-### 💡 Key Highlights
-No hardcoded outputs ❌
-Fully dynamic evaluation ✅
-Real-world recruiter simulation ✅
-Structured and modular design ✅
+# 📂 Project Structure
+
+```text
+GenAI-Resume-Analyzer/
+
+backend/
+├── main.py
+├── chains/
+├── prompts/
+├── resumes/
+├── requirements.txt
+
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── ResumeUpload.jsx
+│   │   └── ResultCard.jsx
+```
 
 ---
 
+# 🚀 Installation
 
-### 🔍 LangSmith Tracing
-Enables debugging of each pipeline step
-Shows:
-Input → Output flow
-Model behavior
-Error tracking
+## 1 Clone Repository
 
----
+```bash
+git clone https://github.com/yourusername/GenAI-Resume-Analyzer.git
 
-### 🚀 Future Improvements
-Streamlit UI (Resume upload)
-Candidate ranking system
-JSON structured outputs
-Multi-job comparison
-ATS-style scoring system
+cd GenAI-Resume-Analyzer
+```
 
 ---
 
+## 2 Backend Setup
 
-### 👨‍💻 Author
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
 
-Rahul Dhumal
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 3 Create .env
+
+```env
+GROQ_API_KEY=your_groq_key
+
+LANGCHAIN_API_KEY=your_langsmith_key
+
+LANGCHAIN_TRACING_V2=true
+
+LANGCHAIN_PROJECT=resume-screening
+```
+
+---
+
+# 🖥 Run Backend API
+
+```bash
+uvicorn main:app --reload
+```
+
+Backend runs:
+
+```text
+http://127.0.0.1:8000
+```
+
+Swagger:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# 🎨 Frontend Setup
+
+Move to frontend:
+
+```bash
+cd frontend
+```
+
+Install:
+
+```bash
+npm install
+```
+
+Run React:
+
+```bash
+npm run dev
+```
+
+Frontend:
+
+```text
+http://localhost:5173
+```
+
+---
+
+# 📦 Command Line Mode (Batch Processing)
+
+Add resumes into:
+
+```text
+resumes/
+```
+
+Run:
+
+```bash
+python main.py
+```
+
+Example:
+
+```text
+Resume: Rahul Resume.pdf
+
+Score: 85
+
+Category: STRONG
+```
+
+---
+
+# 🌐 Web UI Usage
+
+1. Upload Resume PDF
+
+2. Paste Job Description
+
+3. Click Analyze
+
+4. Get:
+
+- Score
+- Category
+- Matched Skills
+- Missing Skills
+- AI Recommendation
+
+---
+
+# 📊 Sample API Response
+
+```json
+{
+ "score":85,
+ "category":"STRONG",
+ "matched_skills":[
+   "React",
+   "Node.js",
+   "MongoDB"
+ ],
+ "missing_skills":[
+   "Docker"
+ ]
+}
+```
+
+---
+
+# 📈 Scoring Logic
+
+| Factor | Weight |
+|--------|--------|
+| Skill Match | 60% |
+| Experience | 30% |
+| Penalties | Applied |
+
+---
+
+# 🔥 Usage Modes
+
+## Mode 1 — Web Application
+React UI + FastAPI
+
+## Mode 2 — Command Line
+Batch screening using:
+
+```bash
+python main.py
+```
+
+---
+
+# 🚀 Future Improvements
+- Multi-candidate ranking dashboard
+- Skill match visualization
+- Resume history / archives
+- Deployment (Vercel + Render)
+- Full ATS dashboard
+
+---
+
+# 👨‍💻 Author
+
+Rahul Pravin Dhumal
 
 ---
