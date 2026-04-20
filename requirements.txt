@@ -5,3 +5,4 @@ langchain-groq>=0.1.0
 langsmith>=0.1.0
 python-dotenv>=1.0.0
 pypdf>=4.0.0
+python-multipart
