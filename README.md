@@ -110,26 +110,6 @@ UI / CLI Output
 
 ---
 
-# 📂 Project Structure
-
-```text
-GenAI-Resume-Analyzer/
-
-backend/
-├── main.py
-├── chains/
-├── prompts/
-├── resumes/
-├── requirements.txt
-
-frontend/
-├── src/
-│   ├── components/
-│   │   ├── ResumeUpload.jsx
-│   │   └── ResultCard.jsx
-```
-
----
 
 # 🚀 Installation
 
@@ -197,7 +177,7 @@ http://127.0.0.1:8000/docs
 Move to frontend:
 
 ```bash
-cd frontend
+cd ai-resume-ui
 ```
 
 Install:
@@ -309,7 +289,6 @@ python main.py
 
 # 🚀 Future Improvements
 - Multi-candidate ranking dashboard
-- Skill match visualization
 - Resume history / archives
 - Deployment (Vercel + Render)
 - Full ATS dashboard
