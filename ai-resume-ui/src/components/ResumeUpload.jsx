@@ -201,6 +201,7 @@ const styles = `
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    min-width: 0;
   }
 
   .ru-file-clear {
@@ -212,6 +213,7 @@ const styles = `
     line-height: 1;
     padding: 0 2px;
     transition: color 0.15s;
+    flex-shrink: 0;
   }
 
   .ru-file-clear:hover { color: #e8e6e1; }
@@ -240,6 +242,7 @@ const styles = `
     align-items: center;
     justify-content: center;
     gap: 10px;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .ru-btn:hover:not(:disabled) {
@@ -263,6 +266,7 @@ const styles = `
     border-top-color: #0c0c0e;
     border-radius: 50%;
     animation: ru-spin 0.7s linear infinite;
+    flex-shrink: 0;
   }
 
   .ru-error {
@@ -275,16 +279,18 @@ const styles = `
     color: #f87171;
     letter-spacing: 0.03em;
     animation: ru-fadein 0.3s ease;
+    word-break: break-word;
   }
 
   .ru-status-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
     margin-top: 16px;
     font-size: 11px;
     color: #3a3a3e;
     letter-spacing: 0.06em;
+    word-break: break-all;
   }
 
   .ru-status-dot {
@@ -292,6 +298,8 @@ const styles = `
     height: 5px;
     border-radius: 50%;
     background: #3a3a3e;
+    flex-shrink: 0;
+    margin-top: 3px;
   }
 
   .ru-status-dot.active {
@@ -311,6 +319,64 @@ const styles = `
   @keyframes ru-pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
+  }
+
+  /* ── Mobile ────────────────────────────── */
+  @media (max-width: 600px) {
+    .ru-root {
+      padding: 32px 12px 56px;
+    }
+
+    .ru-header {
+      margin-bottom: 32px;
+    }
+
+    .ru-subtitle {
+      font-size: 11px;
+      padding: 0 4px;
+      line-height: 1.7;
+    }
+
+    .ru-card {
+      padding: 22px 16px 26px;
+    }
+
+    .ru-dropzone {
+      padding: 24px 12px;
+    }
+
+    .ru-dropzone-text {
+      font-size: 12px;
+    }
+
+    .ru-dropzone-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 10px;
+    }
+
+    .ru-btn {
+      font-size: 12px;
+      padding: 13px 10px;
+      letter-spacing: 0.07em;
+    }
+
+    .ru-status-row {
+      font-size: 10px;
+    }
+
+    .ru-file-name {
+      font-size: 11px;
+    }
+
+    .ru-divider {
+      margin: 20px 0;
+    }
+
+    .ru-label {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+    }
   }
 `;
 
@@ -430,7 +496,9 @@ export default function ResumeUpload() {
           fontFamily:"DM Mono",
           fontSize:"12px",
           borderRadius:"3px",
-          outline:"none"
+          outline:"none",
+          resize:"vertical",
+          lineHeight:"1.7",
           }}
           />
 

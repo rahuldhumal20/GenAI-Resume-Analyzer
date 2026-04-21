@@ -120,6 +120,7 @@ const styles = `
 
   .rc-meta {
     flex: 1;
+    min-width: 0;
   }
 
   .rc-category-pill {
@@ -134,6 +135,10 @@ const styles = `
     text-transform: uppercase;
     font-weight: 500;
     margin-bottom: 10px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .rc-category-pill.strong   { background: rgba(34,197,94,0.1);  color: #22c55e;  border: 1px solid rgba(34,197,94,0.2);  }
@@ -146,6 +151,7 @@ const styles = `
     width: 5px; height: 5px;
     border-radius: 50%;
     background: currentColor;
+    flex-shrink: 0;
     animation: rc-pulse 2s infinite;
   }
 
@@ -170,6 +176,7 @@ const styles = `
     background: #1e1e22;
     border-radius: 2px;
     overflow: hidden;
+    min-width: 0;
   }
 
   .rc-score-bar-fill {
@@ -185,6 +192,62 @@ const styles = `
     color: #5a5856;
     width: 28px;
     text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Skills sections */
+  .rc-skills-section {
+    padding: 20px 36px;
+    border-bottom: 1px solid #1a1a1e;
+  }
+
+  .rc-skills-section h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #3a3a3e;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .rc-skills-section h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #1a1a1e;
+  }
+
+  .rc-skills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .rc-skill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+  }
+
+  .rc-skill-tag.matched {
+    background: rgba(34,197,94,0.08);
+    color: #22c55e;
+    border: 1px solid rgba(34,197,94,0.2);
+  }
+
+  .rc-skill-tag.missing {
+    background: rgba(239,68,68,0.08);
+    color: #f87171;
+    border: 1px solid rgba(239,68,68,0.2);
   }
 
   /* Body */
@@ -269,6 +332,12 @@ const styles = `
     font-family: 'DM Mono', monospace;
   }
 
+  .rc-point-text {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+  }
+
   .rc-point-text strong {
     color: #c8c4bc;
     font-weight: 500;
@@ -282,6 +351,7 @@ const styles = `
     font-weight: 300;
     letter-spacing: 0.01em;
     padding: 4px 0;
+    word-break: break-word;
   }
 
   .rc-plain-text strong {
@@ -296,6 +366,8 @@ const styles = `
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
   .rc-footer-tag {
@@ -321,6 +393,7 @@ const styles = `
     height: 4px;
     border-radius: 50%;
     background: #22c55e;
+    flex-shrink: 0;
     animation: rc-pulse 2s infinite;
   }
 
@@ -332,6 +405,89 @@ const styles = `
   @keyframes rc-pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.3; }
+  }
+
+  /* ── Mobile ────────────────────────────── */
+  @media (max-width: 600px) {
+    .rc-wrap {
+      margin-top: 20px;
+    }
+
+    .rc-hero {
+      padding: 20px 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    .rc-score-block {
+      margin-right: 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .rc-score-ring {
+      width: 72px;
+      height: 72px;
+      flex-shrink: 0;
+    }
+
+    .rc-score-val {
+      font-size: 18px;
+    }
+
+    .rc-meta {
+      width: 100%;
+    }
+
+    .rc-category-pill {
+      font-size: 9px;
+      padding: 3px 9px;
+    }
+
+    .rc-skills-section {
+      padding: 16px 16px;
+    }
+
+    .rc-skill-tag {
+      font-size: 10px;
+      padding: 3px 8px;
+    }
+
+    .rc-body {
+      padding: 20px 16px 24px;
+    }
+
+    .rc-section-title {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+    }
+
+    .rc-point {
+      font-size: 11px;
+      gap: 10px;
+    }
+
+    .rc-point-num {
+      width: 18px;
+      height: 18px;
+      font-size: 9px;
+    }
+
+    .rc-plain-text {
+      font-size: 11px;
+    }
+
+    .rc-footer {
+      padding: 12px 16px;
+    }
+
+    .rc-footer-tag {
+      font-size: 9px;
+      letter-spacing: 0.08em;
+    }
   }
 `;
 
@@ -366,16 +522,12 @@ function InlineText({ text }) {
 function parseExplanation(text) {
   if (!text) return [];
 
-  // Split by **SectionTitle:** patterns at start of a chunk
   const sectionRegex = /\*\*([^*]+?):\*\*/g;
   const sections = [];
-  let lastIndex = 0;
-  let match;
 
   const matches = [...text.matchAll(sectionRegex)];
 
   if (matches.length === 0) {
-    // No sections — just numbered points or plain text
     return [{ title: null, content: text.trim() }];
   }
 
@@ -390,7 +542,6 @@ function parseExplanation(text) {
 
 // Splits a section content into numbered points or plain lines
 function parsePoints(content) {
-  // Match "1. ...", "2. ..." etc.
   const numbered = content.split(/(?=\d+\.\s)/).map(s => s.trim()).filter(Boolean);
   if (numbered.length > 1 || /^\d+\.\s/.test(content.trim())) {
     return numbered.map(item => {
@@ -451,61 +602,35 @@ export default function ResultCard({ result }) {
             </div>
           </div>
 
-          {/* Matched  Skills */}
-
+          {/* Matched Skills */}
           {result?.matched_skills?.length > 0 && (
-          <>
-          <h3>Matched Skills</h3>
-
-          <div>
-          {result.matched_skills.map(
-          (skill,index)=>(
-          <span
-          key={index}
-          style={{
-          display:"inline-block",
-          background:"#dcfce7",
-          color:"#0a8c3c",
-          padding:"4px 12px",
-          margin:"6px",
-          borderRadius:"20px"
-          }}
-          >
-          ✔ {skill}
-          </span>
-          ))}
-          </div>
-          </>
+            <div className="rc-skills-section">
+              <h3>Matched Skills</h3>
+              <div className="rc-skills-wrap">
+                {result.matched_skills.map((skill, index) => (
+                  <span key={index} className="rc-skill-tag matched">
+                    ✔ {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
           )}
 
           {/* Missing Skills */}
-
           {result?.missing_skills?.length > 0 && (
-          <>
-          <h3>Missing Skills</h3>
-
-          <div>
-          {result.missing_skills.map(
-          (skill,index)=>(
-          <span
-          key={index}
-          style={{
-          display:"inline-block",
-          background:"#fee2e2",
-          color:"#991b1b",
-          padding:"4px 12px",
-          margin:"6px",
-          borderRadius:"20px"
-          }}
-          >
-          ✖ {skill}
-          </span>
-          ))}
-          </div>
-          </>
+            <div className="rc-skills-section">
+              <h3>Missing Skills</h3>
+              <div className="rc-skills-wrap">
+                {result.missing_skills.map((skill, index) => (
+                  <span key={index} className="rc-skill-tag missing">
+                    ✖ {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
           )}
 
-          {/* Explanation  */}
+          {/* Explanation */}
           <div className="rc-body">
             <div className="rc-section-label">Explanation</div>
             <div className="rc-explanation">
