@@ -52,7 +52,7 @@ htmlcov/
 # 📊 Data files (optional - if large)
 data/
 *.csv
-*.json
+
 
 # 🚫 Node (if you add React later)
 node_modules/

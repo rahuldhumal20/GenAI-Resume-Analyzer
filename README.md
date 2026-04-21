@@ -3,6 +3,35 @@
 ## 📌 Overview
 GenAI Resume Analyzer is an AI-powered ATS-style resume screening system that evaluates candidates against job descriptions using Large Language Models.
 
+## 🌐 Live Demo
+
+### Frontend (Netlify)
+https://genai-resume-analyzer.netlify.app
+
+### Backend API (Render)
+https://genai-resume-analyzer-3yll.onrender.com
+
+### API Docs (Swagger)
+https://genai-resume-analyzer-3yll.onrender.com/docs
+
+## 🔥 Key Features
+
+### 🌐 Web UI Mode
+Users can:
+
+- Upload Resume PDF
+- Paste any Job Description
+- Run AI analysis instantly
+- View:
+
+  - Score
+  - Category
+  - Matched Skills
+  - Missing Skills
+  - AI Recommendation
+
+---
+
 The system supports both:
 
 ✅ Web UI (React + FastAPI)  
