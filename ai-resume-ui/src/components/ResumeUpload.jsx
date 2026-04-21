@@ -423,7 +423,7 @@ export default function ResumeUpload() {
         "job_description",
         jobDescription
         );
-      const res = await axios.post("https://genai-resume-analyzer-3yll.onrender.com/analyze", formData, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/analyze`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setResult(res.data);
